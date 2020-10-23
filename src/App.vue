@@ -1,6 +1,6 @@
 <template>
  <div class="app-container">
-{{user.username}}
+{{user.username}} - {{ fullName }}
  </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
         email: 'vikrantsingh47@gmail.com',
         isAdmin: true
       }
+    }
+  },
+  computed: {
+    fullName(){
+      return `${this.user.firstname} ${this.user.lastname}`;
     }
   }
 }
