@@ -1,6 +1,8 @@
 <template>
  <div class="app-container">
-{{user.username}} - {{ fullName }}
+   @{{user.username}} - {{ fullName }}
+   <strong>Followers: </strong>{{ followers }}
+   <button v-on:click="followUser"> Follow </button>
  </div>
 </template>
 
@@ -13,7 +15,7 @@ export default {
       followers: 0,
       user: {
         id: 1,
-        username: '@_vikrant',
+        username: '_vikrant',
         firstname: 'vikrant',
         lastname: 'singh',
         email: 'vikrantsingh47@gmail.com',
@@ -25,17 +27,34 @@ export default {
     fullName(){
       return `${this.user.firstname} ${this.user.lastname}`;
     }
+  },
+  watch:{
+    followers(newValue, oldValue){
+      if(oldValue < newValue){
+        console.log(`${this.user.username} has gained a follower!`);
+      }
+    }
+  },
+  methods:{
+    followUser(){
+      this.followers++;
+    }
+  },
+  mounted(){
+    this.followUser();
   }
 }
 </script>
 
-<style>
-#app {
+<style scoped>
+.app-container {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
